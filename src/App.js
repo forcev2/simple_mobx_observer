@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { AvaibleProducts } from "./AvaibleProducts";
+import { useProductStore } from "./ProductContext";
+import { useObserver } from "mobx-react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const productStore = useProductStore();
+
+  console.log(productStore);
+
+  return useObserver(() => (
+    <>
+      <div class="body-wrapper">
+        <div class="avaible-wrapper">
+          <h2 class="avaible-products">Dostępne produkty</h2>
+          <AvaibleProducts />
+        </div>
+        <div class="koszyk">
+          <h2 class="avaible-products">Koszyk</h2>
+            {productStore.products.map((product) => (
+              <div onClick={
+                  () => productStore.removeProduct(product.id)
+                } key={product.id} class="card w-koszyku">
+                <h3>{product.name}</h3> cena : {product.price} zł
+              </div>
+            ))}
+        </div>
+      </div>
+    </>
+  ));
 }
 
 export default App;

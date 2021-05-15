@@ -5,13 +5,12 @@ import { Product } from "./Product";
 import "./App.css";
 
 export const AvaibleProducts = () => {
-  const [noteText, setNoteText] = React.useState("");
   const productStore = useProductStore();
 
   const avaibleProducts = [
     new Product(nanoid(), "asd", 12),
     new Product(nanoid(), "qwe", 45)
-    ]
+  ]
 
   const content = avaibleProducts.map((product) =>
     <div key={product.id} class="card">
